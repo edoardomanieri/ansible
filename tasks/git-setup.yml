@@ -1,0 +1,24 @@
+- name: Git personal setup email
+  git_config:
+    name: user.email
+    scope: global
+    value: "edoardomanieri@gmail.com"
+  tags:
+  - git-personal
+  - install
+- name: Git personal setup name
+  git_config:
+    name: user.name
+    scope: global
+    value: "edoardomanieri"
+  tags:
+  - git-personal
+  - install
+- name: Git safe repos
+  git_config:
+    name: safe.directory
+    scope: global
+    value: "/home/edoman/dotfiles/dotbot"
+  tags:
+  - git-personal
+  - install

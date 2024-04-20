@@ -1,0 +1,40 @@
+- name: Ensuring Homebrew Is Installed
+  stat:
+    path: /usr/local/bin/brew
+  register: homebrew_check
+  tags:
+    - install
+    - core
+    - mac
+- name: Installing Homebrew if not installed
+  become: yes
+  shell: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  when:
+    - not homebrew_check.stat.exists
+  tags:
+    - install
+    - core
+    - mac
+- name: Updating Homebrew
+  community.general.homebrew:
+    update_homebrew: true
+  tags:
+    - install
+    - core
+    - mac
+- name: Installing Homebrew Cask Packages
+  community.general.homebrew:
+    name: ["docker", "google-chrome", "google-drive", "lastpass", "slack", "spotify", "visual-studio-code"]
+    state: present
+  tags:
+    - install
+    - core
+    - mac
+- name: Installing Homebrew Packages
+  homebrew:
+    name: ["docker-compose", "git", "openssl", "python", "tmux", "wget", "tlrc", "fzf", "uv", "zsh"]
+    state: present
+  tags:
+    - install
+    - core
+    - mac
